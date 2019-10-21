@@ -1,6 +1,7 @@
 FROM rastasheep/ubuntu-sshd
 
 ENV AIRFLOW_HOME=/usr/local/airflow_home
+RUN useradd -ms /bin/bash worker
 
 RUN apt-get update \
 && apt-get install mysql-server -y \
@@ -28,3 +29,11 @@ RUN echo 'deb http://www.rabbitmq.com/debian/ testing main' | tee /etc/apt/sourc
 
 EXPOSE 3306
 EXPOSE 5672
+
+RUN chown -R worker:worker /usr/local
+
+COPY setup_script.sql /usr/local
+
+USER worker
+
+CMD /bin/bash

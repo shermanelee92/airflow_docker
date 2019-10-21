@@ -18,9 +18,7 @@ RUN apt-get install libmysqlclient-dev -y \
 COPY config/airflow.cfg /usr/local/airflow_home/
 
 RUN mkdir /usr/local/airflow_home/dags \
-&& chown -R worker:worker /usr/local/* 
-
-RUN chmod 755 /usr/local/*
+&& chown -R worker:worker /usr/local/*
 
 USER worker
 
